@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+	   xsi:schemaLocation="http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/batch https://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="beanioReader" class="org.beanio.spring.BeanIOFlatFileItemReader">
+		<property name="streamMapping" value="classpath:/settlement-map.xml" />
+		<property name="streamName" value="settlementFile" />
+		<property name="resource" value="file:src/main/resources/settlement-report-148956841554440418568.csv" />
+	</bean>
+
+
+
+	<bean id="beaoioWriter" class="org.beanio.spring.BeanIOFlatFileItemWriter">
+		<property name="streamMapping" value="classpath:/settlement-map.xml" />
+		<property name="streamName" value="settlementFile" />
+		<property name="resource" value="file:report.txt" />
+	</bean>
+
+
+
+	<!--<bean id="processor" class="it.javaboss.OrderProcessor"/>-->
+
+	<!--<batch:job id="beanioJob">-->
+		<!--<batch:step id="step1">-->
+			<!--<batch:tasklet>-->
+				<!--<batch:chunk reader="reader"-->
+					<!--processor="processor" -->
+					<!--writer="beaoioWriter"-->
+					<!--commit-interval="1" />-->
+			<!--</batch:tasklet>-->
+		<!--</batch:step>-->
+	<!--</batch:job>-->
+
+</beans>
