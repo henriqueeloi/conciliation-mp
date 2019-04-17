@@ -123,6 +123,11 @@ public class BatchConfiguration {
                 .build();
     }
 
+    @Bean
+    public ComprovanteVendaTreiler comprovanteVendaTreiler(){
+        return  new ComprovanteVendaTreiler();
+    }
+
     ItemWriter<ComprovanteVenda> tofileFixedLength(){
 
         FlatFileItemWriter<ComprovanteVenda> writer = new FlatFileItemWriter<>();
@@ -154,6 +159,8 @@ public class BatchConfiguration {
                 writer.write(stringWriterSubHeader.toString());
             }
         });
+
+        writer.setFooterCallback(comprovanteVendaTreiler());
 
         writer.setResource(outputResource);
 
@@ -199,11 +206,9 @@ public class BatchConfiguration {
                 .reader(reader())
                 .processor(processor())
                 .writer(tofileFixedLength())
+                .listener(comprovanteVendaTreiler())
                 .build();
 
     }
-
-
-
 
 }

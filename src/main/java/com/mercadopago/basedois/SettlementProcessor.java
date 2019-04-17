@@ -31,34 +31,35 @@ public class SettlementProcessor implements ItemProcessor<SettlementDTO, Comprov
 
         ComprovanteVenda comprovanteVenda = new ComprovanteVenda();
 
-        if(settlementDTO.getTransactionType().equalsIgnoreCase("SETTLEMENT")){
-
-            comprovanteVenda.setIdentificacaoLoja("57926918000183");
-            comprovanteVenda.setNsuHostTransacao(settlementDTO.getSourceId());
-            comprovanteVenda.setDataTransacao(getDateFormat(settlementDTO.getTransactionDate()));
-            comprovanteVenda.setHorarioTransacao(getHourFormat(settlementDTO.getTransactionDate()));
-            comprovanteVenda.setDataLancamento(getReleaseDate(settlementDTO.getTransactionDate()));
-            comprovanteVenda.setTipoProduto(getPaymentMethodType(settlementDTO.getPaymentMethodType()));
-
-            comprovanteVenda.setValorBrutoVenda(getValueFormat(settlementDTO.getTransactionAmount()));
-            comprovanteVenda.setValorDesconto(getValueFormat(settlementDTO.getCoupnAmount()));
-            comprovanteVenda.setValorLiqVenda(getValueFormat(settlementDTO.getRealAmount()));
-
-            comprovanteVenda.setNumeroCartao(getCardNumberByMethodType(settlementDTO.getPaymentMethodType()));
-            comprovanteVenda.setNumeroParcela("00");
-            comprovanteVenda.setNumeroTotalParcelas("00");
-            comprovanteVenda.setReservado("0");
-            comprovanteVenda.setValorbrutoParcela("0");
-            comprovanteVenda.setValorDescontoParcela("0");
-            comprovanteVenda.setValorLiquidoParcela("0");
-
-            comprovanteVenda.setBanco("033");
-            comprovanteVenda.setAgencia("0129");
-            comprovanteVenda.setConta("010840405");
-
-            sequenNumber += 1;
-            comprovanteVenda.setNseq(sequenNumber.toString());
+        if(!settlementDTO.getTransactionType().equalsIgnoreCase("SETTLEMENT")){
+            return  null;
         }
+
+        comprovanteVenda.setIdentificacaoLoja("57926918000183");
+        comprovanteVenda.setNsuHostTransacao(settlementDTO.getSourceId());
+        comprovanteVenda.setDataTransacao(getDateFormat(settlementDTO.getTransactionDate()));
+        comprovanteVenda.setHorarioTransacao(getHourFormat(settlementDTO.getTransactionDate()));
+        comprovanteVenda.setDataLancamento(getReleaseDate(settlementDTO.getTransactionDate()));
+        comprovanteVenda.setTipoProduto(getPaymentMethodType(settlementDTO.getPaymentMethodType()));
+
+        comprovanteVenda.setValorBrutoVenda(getValueFormat(settlementDTO.getTransactionAmount()));
+        comprovanteVenda.setValorDesconto(getValueFormat(settlementDTO.getCoupnAmount()));
+        comprovanteVenda.setValorLiqVenda(getValueFormat(settlementDTO.getRealAmount()));
+
+        comprovanteVenda.setNumeroCartao(getCardNumberByMethodType(settlementDTO.getPaymentMethodType()));
+        comprovanteVenda.setNumeroParcela("00");
+        comprovanteVenda.setNumeroTotalParcelas("00");
+        comprovanteVenda.setReservado("0");
+        comprovanteVenda.setValorbrutoParcela("0");
+        comprovanteVenda.setValorDescontoParcela("0");
+        comprovanteVenda.setValorLiquidoParcela("0");
+
+        comprovanteVenda.setBanco("033");
+        comprovanteVenda.setAgencia("0129");
+        comprovanteVenda.setConta("010840405");
+
+        sequenNumber += 1;
+        comprovanteVenda.setNseq(sequenNumber.toString());
 
         return comprovanteVenda;
     }
