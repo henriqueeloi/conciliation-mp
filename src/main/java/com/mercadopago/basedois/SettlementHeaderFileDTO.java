@@ -28,11 +28,34 @@ public class SettlementHeaderFileDTO {
     @FlrField(pos=6, length = 30, padCharacter = ' ', align = Align.RIGHT)
     String nomeAdministradora = "MercadoPago";
 
-    @FlrField(pos=7, length = 1)
-    String tipoProcessamento = "N";
+    @FlrField(pos=7, length = 4)
+    String identificacaoRemetente="0000";
 
     @FlrField(pos=8, length = 6)
-    String nseqRegistro = "123456";
+    String identificacaoDestinatario="000000";
+
+    @FlrField(pos=9, length = 1)
+    String tipoProcessamento = "N";
+
+    @FlrField(pos=10, length = 6)
+    String nseqRegistro = "000001";
+
+
+    public String getIdentificacaoRemetente() {
+        return identificacaoRemetente;
+    }
+
+    public void setIdentificacaoRemetente(String identificacaoRemetente) {
+        this.identificacaoRemetente = identificacaoRemetente;
+    }
+
+    public String getIdentificacaoDestinatario() {
+        return identificacaoDestinatario;
+    }
+
+    public void setIdentificacaoDestinatario(String identificacaoDestinatario) {
+        this.identificacaoDestinatario = identificacaoDestinatario;
+    }
 
     public SettlementHeaderFileDTO() {
     }

@@ -23,7 +23,7 @@ public class SettlementProcessor implements ItemProcessor<SettlementDTO, Comprov
 
     private StepExecution stepExecution;
 
-    private Integer sequenNumber=0;
+    private Integer sequenNumber=2;
 
     @Nullable
     @Override
@@ -40,23 +40,20 @@ public class SettlementProcessor implements ItemProcessor<SettlementDTO, Comprov
         comprovanteVenda.setDataTransacao(getDateFormat(settlementDTO.getTransactionDate()));
         comprovanteVenda.setHorarioTransacao(getHourFormat(settlementDTO.getTransactionDate()));
         comprovanteVenda.setDataLancamento(getReleaseDate(settlementDTO.getTransactionDate()));
-        comprovanteVenda.setTipoProduto(getPaymentMethodType(settlementDTO.getPaymentMethodType()));
+//      comprovanteVenda.setTipoProduto(getPaymentMethodType(settlementDTO.getPaymentMethodType()));
 
         comprovanteVenda.setValorBrutoVenda(getValueFormat(settlementDTO.getTransactionAmount()));
-        comprovanteVenda.setValorDesconto(getValueFormat(settlementDTO.getCoupnAmount()));
+        comprovanteVenda.setValorDesconto(getValueFormat(settlementDTO.getFeeAmount()));
         comprovanteVenda.setValorLiqVenda(getValueFormat(settlementDTO.getRealAmount()));
 
-        comprovanteVenda.setNumeroCartao(getCardNumberByMethodType(settlementDTO.getPaymentMethodType()));
+        //comprovanteVenda.setNumeroCartao(getCardNumberByMethodType(settlementDTO.getPaymentMethodType()));
         comprovanteVenda.setNumeroParcela("00");
         comprovanteVenda.setNumeroTotalParcelas("00");
         comprovanteVenda.setReservado("0");
         comprovanteVenda.setValorbrutoParcela("0");
         comprovanteVenda.setValorDescontoParcela("0");
         comprovanteVenda.setValorLiquidoParcela("0");
-
-        comprovanteVenda.setBanco("033");
-        comprovanteVenda.setAgencia("0129");
-        comprovanteVenda.setConta("010840405");
+        comprovanteVenda.setCodigoProduto(getProductCode(settlementDTO.getPaymentMethodType()));
 
         sequenNumber += 1;
         comprovanteVenda.setNseq(sequenNumber.toString());
@@ -66,7 +63,19 @@ public class SettlementProcessor implements ItemProcessor<SettlementDTO, Comprov
 
 
 
-    private String getCardNumberByMethodType(String paymentMethodType) {
+    private String getProductCode(String paymentMethodType) {
+    	 String type = getPaymentMethodType(paymentMethodType);
+
+         if(type.equalsIgnoreCase("C")){
+             return "002";
+         }else {
+             return "001";
+         }
+	}
+
+
+
+	private String getCardNumberByMethodType(String paymentMethodType) {
         String type = getPaymentMethodType(paymentMethodType);
 
         if(type.equalsIgnoreCase("C")){
@@ -78,7 +87,7 @@ public class SettlementProcessor implements ItemProcessor<SettlementDTO, Comprov
 
     private String getValueFormat(String transactionAmount) {
         BigDecimal value = new BigDecimal(transactionAmount);
-        return value.toString().replaceAll(".","");
+        return value.abs().toString().replace(".","");
     }
 
     private String getPaymentMethodType(String paymentMethodType) {

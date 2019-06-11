@@ -1,17 +1,16 @@
 package com.mercadopago.basedois;
 
 import net.sf.jsefa.Serializer;
-import net.sf.jsefa.common.lowlevel.LowLevelSerializer;
 import net.sf.jsefa.flr.FlrIOFactory;
 import net.sf.jsefa.flr.config.FlrConfiguration;
-import org.beanio.spring.BeanIOFlatFileItemReader;
-import org.beanio.spring.BeanIOFlatFileItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -29,10 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import sun.tools.java.ClassPath;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -47,10 +44,14 @@ public class BatchConfiguration {
     @Autowired
     public JobBuilderFactory jobBuilderFactory;
 
+
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
+    
+    @Autowired
+    JobCompletionNotificationListener notificationListener;
 
-    Resource outputResource = new FileSystemResource("output/outputData.txt");
+    Resource outputResource = new FileSystemResource("output/MARC_PG_19041601000001.TXT");
 
     @Bean
     public FlatFileItemReader<SettlementDTO> reader(){
@@ -123,6 +124,8 @@ public class BatchConfiguration {
                 .build();
     }
 
+
+
     @Bean
     public ComprovanteVendaTreiler comprovanteVendaTreiler(){
         return  new ComprovanteVendaTreiler();
@@ -164,19 +167,6 @@ public class BatchConfiguration {
 
         writer.setResource(outputResource);
 
-//        writer.setAppendAllowed(true);
-
-
-//        writer.setLineAggregator(new FormatterLineAggregator<ComprovanteVenda>(){
-//            {
-//                setFieldExtractor(new BeanWrapperFieldExtractor<ComprovanteVenda>(){
-//                    {
-//                        setNames(new String[]{"codigoRegistro", "identificacaoLoja"});
-//                        setFormat("%-2s%-15s");
-//                    }
-//                });
-//            }
-//        });
 
         writer.setLineAggregator(new PassThroughLineAggregator<ComprovanteVenda>() {
             @Override

@@ -2,6 +2,7 @@ package com.mercadopago.basedois;
 
 import net.sf.jsefa.flr.annotation.FlrDataType;
 import net.sf.jsefa.flr.annotation.FlrField;
+import net.sf.jsefa.flr.lowlevel.Align;
 
 @FlrDataType()
 public class SettlementSubHeaderFileDTO {
@@ -15,8 +16,8 @@ public class SettlementSubHeaderFileDTO {
     @FlrField(pos = 3, length = 2)
     String identificacaoMoeda = "RE";
 
-    @FlrField(pos = 4, length = 6)
-    String nseq = "123456";
+    @FlrField(pos = 4, length = 6, padCharacter = '0', align = Align.RIGHT)
+    String nseq = "2";
 
     public String getCodigoRegistro() {
         return codigoRegistro;

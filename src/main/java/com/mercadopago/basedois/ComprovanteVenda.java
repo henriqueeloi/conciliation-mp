@@ -29,10 +29,10 @@ public class ComprovanteVenda {
     String dataLancamento;
 
     @FlrField(pos = 8, length = 1)
-    String tipoProduto;
+    String tipoProduto="L";
 
     @FlrField(pos = 9, length = 1)
-    String meioCaptura="3";
+    String meioCaptura="5";
 
     @FlrField(pos = 10, length = 11, padCharacter = '0', align = Align.RIGHT)
     String valorBrutoVenda;
@@ -40,14 +40,14 @@ public class ComprovanteVenda {
     @FlrField(pos = 11, length = 11, padCharacter = '0', align = Align.RIGHT)
     String valorDesconto;
 
-//    @FlrField(pos = 12, length = 11)
-//    String valorTaxaAntecipacao;
+    @FlrField(pos = 12, length = 11, padCharacter = '0', align = Align.RIGHT)
+    String valorTaxaAntecipacao="0";
 
     @FlrField(pos = 13, length = 11, padCharacter = '0', align = Align.RIGHT)
     String valorLiqVenda;
 
     @FlrField(pos = 14, length = 19, padCharacter = '0', align = Align.RIGHT)
-    String numeroCartao;
+    String numeroCartao="0";
 
     @FlrField(pos = 15, length = 2)
     String numeroParcela;
@@ -67,30 +67,53 @@ public class ComprovanteVenda {
     @FlrField(pos = 20, length = 11, padCharacter = '0', align = Align.RIGHT)
     String valorLiquidoParcela;
 
-//    @FlrField(pos = 21, length = 11, padCharacter = '0', align = Align.RIGHT)
-//    String valorTaxaAntecipacaoParcela;
+    @FlrField(pos = 21, length = 11, padCharacter = '0', align = Align.RIGHT)
+    String valorTaxaAntecipacaoParcela;
 
-    @FlrField(pos = 22, length = 3)
-    String banco;
+    @FlrField(pos = 22, length = 3,  padCharacter = '0', align = Align.RIGHT)
+    String banco="0";
 
     @FlrField(pos = 23, length = 6, padCharacter = '0', align = Align.RIGHT)
-    String agencia;
+    String agencia="0";
 
     @FlrField(pos = 24, length = 11, padCharacter = '0', align = Align.RIGHT)
-    String conta;
+    String conta="0";
 
     @FlrField(pos = 25, length = 12, padCharacter = '0', align = Align.RIGHT)
     String codigoAutorizacao;
 
-//    @FlrField(pos = 26, length = 3)
-//    String codigoBandeira;
-//
-//    @FlrField(pos = 27, length = 3)
-//    String codigoProduto;
+    @FlrField(pos = 26, length = 3, padCharacter = '0', align = Align.RIGHT)
+    String codigoBandeira="0";
+
+    @FlrField(pos = 27, length = 3, padCharacter = '0', align = Align.RIGHT)
+    String codigoProduto;
 
     @FlrField(pos = 28, length = 6, padCharacter = '0', align = Align.RIGHT)
     String nseq;
 
+    public String getValorTaxaAntecipacaoParcela() {
+        return valorTaxaAntecipacaoParcela;
+    }
+
+    public void setValorTaxaAntecipacaoParcela(String valorTaxaAntecipacaoParcela) {
+        this.valorTaxaAntecipacaoParcela = valorTaxaAntecipacaoParcela;
+    }
+
+    public String getCodigoBandeira() {
+        return codigoBandeira;
+    }
+
+    public void setCodigoBandeira(String codigoBandeira) {
+        this.codigoBandeira = codigoBandeira;
+    }
+
+    public String getCodigoProduto() {
+        return codigoProduto;
+    }
+
+    public void setCodigoProduto(String codigoProduto) {
+        this.codigoProduto = codigoProduto;
+    }
 
     public String getCodigoRegistro() {
         return codigoRegistro;
@@ -282,5 +305,13 @@ public class ComprovanteVenda {
 
     public void setNseq(String nseq) {
         this.nseq = nseq;
+    }
+
+    public String getValorTaxaAntecipacao() {
+        return valorTaxaAntecipacao;
+    }
+
+    public void setValorTaxaAntecipacao(String valorTaxaAntecipacao) {
+        this.valorTaxaAntecipacao = valorTaxaAntecipacao;
     }
 }
